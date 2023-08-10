@@ -12,17 +12,19 @@ const refs = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
+let selectedDate;
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const selectedDate = selectedDates[0];
     if (selectedDate <= new Date()) {
       startButton.disabled = true; // Деактивуємо кнопку "Start", при виборі дати раніше
       alert('Please choose a date in the future');
     } else {
+      selectedDate = selectedDates[0];
+
       startButton.disabled = false; // Активуємо кнопку "Start", при виборі дати після
     }
   },
@@ -36,8 +38,6 @@ startButton.addEventListener('click', startButtonClick);
 
 function startButtonClick() {
   startButton.disabled = true;
-
-  const selectedDate = flatpickr.parseDate(inputDataTime.value);
 
   clearInterval(interval);
 

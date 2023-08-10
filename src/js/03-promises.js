@@ -14,8 +14,15 @@ function handleSubmit(e) {
   let initialDelay = Number(delayInput.value);
   let step = Number(stepInput.value);
   let amount = Number(amountInput.value);
+  let position = 0;
 
-  for (let i = 0; i < amount; i++) {
+  if (initialDelay < 0 || step < 0 || amount <= 0) {
+    Notiflix.Notify.failure('Значення мають бути більше 0');
+    return; // Додайте цей рядок, щоб зупинити виконання коду при помилці
+  }
+
+  for (let i = 1; i <= amount; i++) {
+    position = i;
     createPromise(i, initialDelay + step * i)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
